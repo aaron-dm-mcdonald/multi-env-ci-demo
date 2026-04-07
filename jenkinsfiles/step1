@@ -1,0 +1,44 @@
+pipeline {
+  agent any
+
+  environment {
+    BUCKET  = "artifact-storage-20260407222333196000000001"
+    VERSION = "${env.GIT_COMMIT}"
+  }
+
+  stages {
+
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+
+    stage('Build') {
+      steps {
+        sh '''
+          cd app
+          go mod tidy
+          go test ./...
+          GOOS=linux GOARCH=amd64 go build -o ../app-binary .
+        '''
+      }
+    }
+
+    stage('Upload to S3') {
+      steps {
+        sh '''
+          aws s3 cp app-binary s3://$BUCKET/app/$VERSION/app
+        '''
+      }
+    }
+
+    stage('Deploy Dev') {
+      steps {
+        sh '''
+          ./scripts/deploy.sh dev $VERSION $BUCKET
+        '''
+      }
+    }
+  }
+}

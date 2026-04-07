@@ -19,5 +19,4 @@ curl -o /etc/systemd/system/go-api.service \
 
 # start service
 systemctl daemon-reload
-systemctl enable go-api
-systemctl start go-api
+systemctl enable --now go-api
