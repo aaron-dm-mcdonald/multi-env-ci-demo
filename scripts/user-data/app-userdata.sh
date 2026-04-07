@@ -1,5 +1,4 @@
 #!/bin/bash
-set -e
 
 BUCKET="artifact-storage-20260407222333196000000001"
 VERSION="edb565f"
