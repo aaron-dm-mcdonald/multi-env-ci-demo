@@ -1,0 +1,17 @@
+[Unit]
+Description=Go API Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ec2-user
+Group=ec2-user
+WorkingDirectory=/opt/api
+ExecStart=/opt/api/app
+Restart=always
+RestartSec=5
+Environment=PORT=8080
+
+[Install]
+WantedBy=multi-user.target
