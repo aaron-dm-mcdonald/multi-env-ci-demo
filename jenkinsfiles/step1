@@ -37,7 +37,7 @@ pipeline {
     stage('Deploy Dev') {
       steps {
         sh '''
-          ./scripts/deploy.sh dev $VERSION $BUCKET
+          ./jenkinsfiles/step1.sh dev $VERSION $BUCKET
         '''
       }
     }
