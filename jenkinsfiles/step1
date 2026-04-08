@@ -37,6 +37,7 @@ pipeline {
     stage('Deploy Dev') {
       steps {
         sh '''
+          chmod +x ./jenkinsfiles/step1.sh
           ./jenkinsfiles/step1.sh dev $VERSION $BUCKET
         '''
       }
